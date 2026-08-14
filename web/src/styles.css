@@ -120,7 +120,10 @@ canvas {
   font-size: 10px;
   letter-spacing: 0.32em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: #111827;
+  font-weight: 700;
+  opacity: 0.95;
+  text-shadow: 0 1px 4px rgba(255, 255, 255, 0.35);
   pointer-events: none;
 }
 
@@ -134,7 +137,7 @@ canvas {
   width: 1px;
   height: 44px;
   overflow: hidden;
-  background: linear-gradient(rgba(244, 241, 234, 0.28), rgba(244, 241, 234, 0.04));
+  background: linear-gradient(rgba(17, 24, 39, 0.7), rgba(17, 24, 39, 0.15));
 }
 
 .scroll-cue-dot {
@@ -145,8 +148,8 @@ canvas {
   height: 9px;
   margin-left: -1.5px;
   border-radius: 2px;
-  background: #ffd9b3;
-  box-shadow: 0 0 6px rgba(255, 217, 179, 0.8);
+  background: #111827;
+  box-shadow: 0 0 6px rgba(17, 24, 39, 0.45);
   animation: cueDot 1.9s cubic-bezier(0.65, 0, 0.35, 1) infinite;
 }
 
@@ -282,18 +285,24 @@ canvas {
   font-size: clamp(30px, 7.2vw, 80px);
   line-height: 1;
   letter-spacing: 0.01em;
-  color: var(--ink);
+  color: #e8f0ff;
   margin-bottom: 0.3em;
+  text-shadow:
+    0 2px 12px rgba(0, 0, 0, 0.65),
+    0 6px 30px rgba(0, 0, 0, 0.35);
 }
 
 .about-body {
   margin: 0.5em auto 0;
   max-width: min(660px, 88vw);
   font-family: 'Cormorant Upright', 'Chiron GoRound TC', 'PingFang SC', 'Microsoft YaHei', serif;
-  font-weight: 500;
+  font-weight: 600;
   font-size: clamp(8px, 1.05vw, 16px);
   line-height: 1.2;
-  color: var(--ink);
+  color: #e8f0ff;
+  text-shadow:
+    0 2px 12px rgba(0, 0, 0, 0.65),
+    0 4px 20px rgba(0, 0, 0, 0.35);
 }
 
 /* 正文内 ZOOOP 链接：容器是 pointer-events:none，链接需单独开启可点 */
@@ -450,6 +459,46 @@ canvas {
   margin-top: 0.35em;
   font-size: 15px;
   color: rgba(244, 241, 234, 0.8);
+}
+
+.tl-courses {
+  margin-top: 1.05em;
+}
+
+.tl-courses-label {
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.7em;
+}
+
+.tl-course-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tl-course {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.45em;
+  max-width: 100%;
+  padding: 6px 11px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(244, 241, 234, 0.05);
+  font-size: 12px;
+  line-height: 1.25;
+  color: rgba(244, 241, 234, 0.82);
+}
+
+.tl-course-code {
+  flex: none;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--muted);
 }
 
 .tl-points {
@@ -890,12 +939,13 @@ canvas {
   border-right: 1px solid var(--line);
 }
 
-/* 小横图：右侧错落（align-self 右对齐 + 内缩留白），不抢主体 */
+/* 小横图：所有板块同一尺寸/位置，保证画廊节奏一致 */
 .wk-card-cover {
   position: relative;
   flex: none;
   align-self: flex-end;
-  width: clamp(160px, 22vw, 240px);
+  display: block;
+  width: clamp(180px, 24vw, 280px);
   margin-right: clamp(12px, 6%, 80px);
   aspect-ratio: 3 / 2;
   border-radius: 12px;
@@ -903,11 +953,28 @@ canvas {
   border: 1px solid var(--line);
   background: #1d2124;
 }
-.wk-card-cover img {
+.wk-card-cover img,
+.wk-card-cover .wk-card-illust {
   width: 100%;
   height: 100%;
-  object-fit: cover;
   display: block;
+}
+.wk-card-cover img {
+  object-fit: contain;
+  transition: filter 0.25s ease;
+}
+a.wk-card-cover {
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+a.wk-card-cover:hover,
+a.wk-card-cover:focus-visible {
+  transform: scale(1.04);
+  outline: none;
+}
+a.wk-card-cover:hover img,
+a.wk-card-cover:focus-visible img {
+  filter: brightness(1.08);
 }
 .wk-card-cover-ph {
   position: absolute;
@@ -943,6 +1010,17 @@ canvas {
   line-height: 1.06;
   letter-spacing: 0.01em;
   color: var(--ink);
+}
+.wk-card-title-link {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.wk-card-title-link:hover,
+.wk-card-title-link:focus-visible {
+  color: #ffd9b3;
+  outline: none;
 }
 .wk-card-tagline {
   display: block;
@@ -1052,6 +1130,19 @@ canvas {
 .wk-line-btn:hover .wk-line-name,
 .wk-line-btn:focus-visible .wk-line-name {
   color: #ffd9b3;
+}
+
+/* 静态 bullet：沿用 .wk-line-btn 排版，关闭指针与 hover 交互 */
+.wk-line-btn.wk-line-static {
+  cursor: default;
+}
+.wk-line-btn.wk-line-static:hover,
+.wk-line-btn.wk-line-static:focus-visible {
+  padding-left: 0;
+}
+.wk-line-btn.wk-line-static:hover .wk-line-name,
+.wk-line-btn.wk-line-static:focus-visible .wk-line-name {
+  color: rgba(244, 241, 234, 0.9);
 }
 
 /* 右侧数据：播放量(暖色) + 标签(弱化)，以 · 连排 */

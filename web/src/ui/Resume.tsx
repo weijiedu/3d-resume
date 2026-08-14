@@ -5,20 +5,20 @@ import { FOCUS_POINTS } from '../data/focusPoints'
 
 const SOCIAL_LINKS = [
   {
-    id: 'douyin',
-    label: '抖音',
-    href: 'https://www.douyin.com/user/MS4wLjABAAAAlmQDgHf0NlbsjrfWENm8LyrIikxSRRq7mzlzQSIStQJkV7Ju52B6A55zw5TUDU5d',
+    id: 'github',
+    label: 'GitHub',
+    href: 'https://github.com/weijiedu',
   },
   {
-    id: 'bilibili',
-    label: 'B站',
-    href: 'https://space.bilibili.com/275344092?spm_id_from=333.937.0.0',
+    id: 'linkedin',
+    label: 'LinkedIn',
+    href: 'https://www.linkedin.com/in/weijie-du/',
   },
-  {
-    id: 'xiaohongshu',
-    label: '小红书',
-    href: 'https://www.xiaohongshu.com/user/profile/5ceba8c8000000000502fd69',
-  },
+  // {
+  //   id: 'portfolio',
+  //   label: 'Portfolio',
+  //   href: '#',
+  // },
 ]
 
 // 履历数据（双语）。英文为译稿，可按需润色。
@@ -31,114 +31,97 @@ interface ResumeGroup {
   items?: string[]
   links?: { id: string; label: string; href: string }[]
 }
+interface Course {
+  code?: string
+  name: string
+}
 interface ResumeEntry {
   period: string
   place: string
   role?: string
   logo?: { src: string; alt: string }
   points?: string[]
+  courses?: Course[]
   groups?: ResumeGroup[]
 }
-const RESUME: Record<'en' | 'zh', { title: string; entries: ResumeEntry[] }> = {
-  en: {
-    title: 'Résumé',
-    entries: [
+const ENTRIES: ResumeEntry[] = [
+  {
+    period: '2020 – 2024',
+    place: 'University of California, Irvine',
+    role: 'Bachelor of Science in Computer Science · Intelligent Systems Track',
+    courses: [
+      { code: 'ICS 46', name: 'Data Structures' },
+      { code: 'CS 161', name: 'Algorithms' },
+      { code: 'CS 175', name: 'Deep Learning' },
+      { code: 'CS 178', name: 'Machine Learning' },
+      { code: 'INF 115', name: 'Software Testing' },
+      { code: 'INF 131', name: 'Human Computer Interaction' },
+      { code: 'INF 133', name: 'User Interaction Software' },
+    ],
+  },
+  {
+    period: 'Sep 2022 – Jun 2024',
+    place: 'UC Irvine STAR Lab',
+    role: 'Research Assistant',
+    points: [
+      'Co-authored research published at PACMHCI 2025 and ASSETS 2024, analyzing 200+ qualitative data points on noise sensitivity and social support in autistic communities.',
+      'Conducted 10+ interviews and co-design sessions with autistic participants, translating findings into design recommendations for mobile and wearable technologies.',
+      'Contributed to a Samsung Galaxy Watch research prototype using Android APIs and the Samsung Health SDK to support sensory-management studies.',
+    ],
+  },
+  {
+    period: 'Oct 2024 – Jan 2025',
+    place: 'Fact Finders Pro',
+    role: 'Software Engineer Intern',
+    points: [
+      'Built an AI-powered fact-checking platform with React and TypeScript, making verification workflows easier for non-technical users.',
+      'Developed Python REST APIs for real-time data retrieval and analysis.',
+      'Worked with product and design teammates to turn requirements into production-ready features across the frontend and backend.',
+    ],
+  },
+  {
+    period: '2024 – 2026',
+    place: 'Carnegie Mellon University',
+    role: 'Master of Science in Software Engineering',
+    courses: [
+      { name: 'Foundations of Software Engineering' },
+      { name: 'Computer Architecture and Design' },
+      { name: 'Software Requirements & Interaction Design' },
+      { name: 'Cloud Infrastructure and Services' },
+      { name: 'Data Science in Software Engineering' },
+      { name: 'Mobile & Embedded Software Design' },
+      { name: 'Functional Programming' },
+    ],
+  },
+  {
+    period: 'Aug 2025 – Dec 2025',
+    place: 'Bosch',
+    role: 'Software Engineer Intern',
+    points: [
+      'Engineered a semantic 3D mapping pipeline that achieved centimeter-level localization accuracy for autonomous parking.',
+      'Integrated vision-language models (CLIP and LSeg) with point-cloud algorithms to automate the detection of lanes, curbs, and road markings.',
+      'Built a compression pipeline that reduced map asset size from 700 MB to 130 MB and improved map load times by 80%.',
+      'Implemented caching and warm-start optimizations that reduced asset-loading latency by 99% during interactive 3D visualization.'
+    ],
+    groups: [
       {
-        period: '2013 – 2017',
-        place: 'Sun Yat-sen University',
-        role: 'B.S. in Software Engineering',
-      },
-      {
-        period: '2017 – 2020',
-        place: 'HOTSAR Studio · Shanghai',
-        role: 'Co-founder',
-        logo: { src: `${import.meta.env.BASE_URL}images/hotsar.jpg`, alt: 'HOTSAR' },
-        points: [
-          'Co-founder · team of 20+',
-          'Clients: Alibaba brands, Tencent, NetEase, DiDi, China Resources, McDonald’s…',
-          'Work: development / creative direction / animation / team management',
-        ],
-      },
-      {
-        period: '2020 – 2025',
-        place: 'Bad Printer Studio · Shenzhen',
-        role: 'Founder',
-        logo: { src: `${import.meta.env.BASE_URL}images/bp.png`, alt: 'Bad Printer Studio' },
-        points: [
-          'Founder · team of 14',
-          'Clients: Honor of Kings / Trip.com / ByteDance / Kuaishou / VIVO / Tecno / Xiaomi / IM Motors…',
-          'Work: team management / creative direction / animation / development',
-        ],
-      },
-      {
-        period: '2025 – Now',
-        place: 'Content Creator',
-        groups: [
-          {
-            heading: '小郑还挺忙',
-            logoImg: `${import.meta.env.BASE_URL}images/buzyzheng.png`,
-            sub: 'tech-DIY creator',
-            items: ['120K on Douyin · 87K on Bilibili · 23K on Xiaohongshu'],
-            links: SOCIAL_LINKS,
-          },
-        ],
-      },
-      {
-        period: '2026 – Now',
-        place: 'Indie Developer',
-        groups: [{ logo: 'zooop', sub: 'AI creation platform', link: 'https://zooop.ai/' }],
+        heading: 'Connect',
+        links: SOCIAL_LINKS,
       },
     ],
   },
+
+  
+]
+
+const RESUME: Record<'en' | 'zh', { title: string; entries: ResumeEntry[] }> = {
+  en: {
+    title: 'Résumé',
+    entries: ENTRIES,
+  },
   zh: {
     title: 'Résumé',
-    entries: [
-      {
-        period: '2013 – 2017',
-        place: '中山大学',
-        role: '软件工程 · 本科',
-      },
-      {
-        period: '2017 – 2020',
-        place: 'HOTSAR 工作室 · 上海',
-        role: '联合创始人',
-        logo: { src: `${import.meta.env.BASE_URL}images/hotsar.jpg`, alt: 'HOTSAR' },
-        points: [
-          '联合创始人，团队人数 20+',
-          '服务客户：阿里系品牌、腾讯、网易、滴滴、华润、麦当劳…',
-          '负责：技术开发 / 创意策划 / 动画制作 / 团队管理',
-        ],
-      },
-      {
-        period: '2020 – 2025',
-        place: '坏打印机工作室 · 深圳',
-        role: '创始人',
-        logo: { src: `${import.meta.env.BASE_URL}images/bp.png`, alt: '坏打印机工作室' },
-        points: [
-          '创始人，团队人数 14',
-          '服务客户：王者荣耀 / 携程 / 字节 / 快手 / VIVO / 传音 / 小米…',
-          '负责：团队管理 / 创意策划 / 动画制作 / 技术开发',
-        ],
-      },
-      {
-        period: '2025 – 至今',
-        place: '自媒体博主',
-        groups: [
-          {
-            heading: '小郑还挺忙',
-            logoImg: `${import.meta.env.BASE_URL}images/buzyzheng.png`,
-            sub: '科技 DIY 博主',
-            items: ['抖音 12 万 · B站 8.7 万 · 小红书 2.3 万 关注'],
-            links: SOCIAL_LINKS,
-          },
-        ],
-      },
-      {
-        period: '2026 – 至今',
-        place: '独立开发',
-        groups: [{ logo: 'zooop', sub: 'AI 创作平台', link: 'https://zooop.ai/' }],
-      },
-    ],
+    entries: ENTRIES,
   },
 }
 
@@ -154,6 +137,22 @@ const containerV = {
 const itemV = {
   hidden: { opacity: 0, y: 26 },
   show: { opacity: 1, y: 0, transition: { duration: 0.75, ease: EASE } },
+}
+
+function Coursework({ courses }: { courses: Course[] }) {
+  return (
+    <motion.div className="tl-courses" variants={itemV}>
+      <div className="tl-courses-label">Selected Coursework</div>
+      <ul className="tl-course-list">
+        {courses.map((c) => (
+          <li key={c.code ? `${c.code}-${c.name}` : c.name} className="tl-course">
+            {c.code && <span className="tl-course-code">{c.code}</span>}
+            <span className="tl-course-name">{c.name}</span>
+          </li>
+        ))}
+      </ul>
+    </motion.div>
+  )
 }
 
 function Group({ group }: { group: ResumeGroup }) {
@@ -250,6 +249,7 @@ function Entry({ entry, index }: { entry: ResumeEntry; index: number }) {
             {entry.role}
           </motion.div>
         )}
+        {entry.courses && entry.courses.length > 0 && <Coursework courses={entry.courses} />}
         {entry.points && (
           <motion.ul className="tl-points" variants={itemV}>
             {entry.points.map((p, i) => (

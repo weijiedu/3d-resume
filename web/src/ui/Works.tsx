@@ -8,12 +8,34 @@ import { getWorkDoc } from '../data/workDocs'
 
 const EASE = [0.22, 1, 0.36, 1]
 
-// 极简清单的一行：作品名靠左、数据(播放量/标签)靠右、发丝线分隔；整行可点开全屏详情
-function WorkLine({ item, onOpen }: { item: WorkListItem; onOpen: (item: WorkListItem) => void }) {
+// 极简清单的一行：作品名靠左、数据(播放量/标签)靠右、发丝线分隔。
+// 原版整行可点开全屏详情；现改为静态 bullet，样式不变。恢复点击时还原下面注释块并给 WorkLine 传回 onOpen。
+// function WorkLine({ item, onOpen }: { item: WorkListItem; onOpen: (item: WorkListItem) => void }) {
+//   const hasMeta = item.meta || (item.tags && item.tags.length)
+//   return (
+//     <li className="wk-line">
+//       <button className="wk-line-btn" onClick={() => onOpen(item)}>
+//         <span className="wk-line-name">{item.name}</span>
+//         {hasMeta && (
+//           <span className="wk-line-meta">
+//             {item.meta && <span className="wk-line-num">{item.meta}</span>}
+//             {item.tags &&
+//               item.tags.map((t, i) => (
+//                 <span key={i} className="wk-line-tag">
+//                   {t}
+//                 </span>
+//               ))}
+//           </span>
+//         )}
+//       </button>
+//     </li>
+//   )
+// }
+function WorkLine({ item }: { item: WorkListItem }) {
   const hasMeta = item.meta || (item.tags && item.tags.length)
   return (
     <li className="wk-line">
-      <button className="wk-line-btn" onClick={() => onOpen(item)}>
+      <div className="wk-line-btn wk-line-static">
         <span className="wk-line-name">{item.name}</span>
         {hasMeta && (
           <span className="wk-line-meta">
@@ -26,9 +48,71 @@ function WorkLine({ item, onOpen }: { item: WorkListItem; onOpen: (item: WorkLis
               ))}
           </span>
         )}
-      </button>
+      </div>
     </li>
   )
+}
+
+function NetworkIllustration() {
+  return (
+    <svg className="wk-card-illust" viewBox="0 0 300 200" aria-hidden="true">
+      <defs>
+        <radialGradient id="esn-bg" cx="38%" cy="42%" r="70%">
+          <stop offset="0%" stopColor="#2a3238" />
+          <stop offset="100%" stopColor="#14181c" />
+        </radialGradient>
+      </defs>
+      <rect width="300" height="200" fill="url(#esn-bg)" />
+      <circle cx="118" cy="96" r="54" fill="none" stroke="rgba(255,217,179,0.14)" strokeWidth="1.2" />
+      <circle cx="118" cy="96" r="78" fill="none" stroke="rgba(244,241,234,0.08)" strokeWidth="1" />
+      <line x1="118" y1="96" x2="48" y2="52" stroke="rgba(244,241,234,0.22)" strokeWidth="1.2" />
+      <line x1="118" y1="96" x2="62" y2="148" stroke="rgba(244,241,234,0.18)" strokeWidth="1.2" />
+      <line x1="118" y1="96" x2="214" y2="58" stroke="rgba(255,217,179,0.45)" strokeWidth="1.4" />
+      <line x1="118" y1="96" x2="236" y2="128" stroke="rgba(244,241,234,0.2)" strokeWidth="1.2" />
+      <line x1="214" y1="58" x2="236" y2="128" stroke="rgba(244,241,234,0.12)" strokeWidth="1" />
+      <circle cx="118" cy="96" r="11" fill="#ffd9b3" />
+      <circle cx="48" cy="52" r="6" fill="rgba(244,241,234,0.85)" />
+      <circle cx="62" cy="148" r="5.5" fill="rgba(244,241,234,0.7)" />
+      <circle cx="214" cy="58" r="7" fill="#ffd9b3" />
+      <circle cx="236" cy="128" r="6" fill="rgba(244,241,234,0.8)" />
+      <path
+        d="M196 36h28a8 8 0 0 1 8 8v14a8 8 0 0 1-8 8h-16l-9 8v-8h-3a8 8 0 0 1-8-8V44a8 8 0 0 1 8-8z"
+        fill="rgba(255,217,179,0.16)"
+        stroke="rgba(255,217,179,0.55)"
+        strokeWidth="1.2"
+      />
+      <circle cx="208" cy="51" r="2.2" fill="#ffd9b3" />
+      <circle cx="218" cy="51" r="2.2" fill="#ffd9b3" />
+      <circle cx="228" cy="51" r="2.2" fill="#ffd9b3" />
+    </svg>
+  )
+}
+
+function SkillsIllustration() {
+  return (
+    <svg className="wk-card-illust" viewBox="0 0 300 200" aria-hidden="true">
+      <defs>
+        <linearGradient id="sk-bg" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#23282e" />
+          <stop offset="100%" stopColor="#14181c" />
+        </linearGradient>
+      </defs>
+      <rect width="300" height="200" fill="url(#sk-bg)" />
+      <rect x="38" y="42" width="168" height="108" rx="10" fill="rgba(244,241,234,0.04)" stroke="rgba(244,241,234,0.14)" />
+      <rect x="86" y="58" width="168" height="108" rx="10" fill="rgba(20,24,28,0.9)" stroke="rgba(255,217,179,0.28)" />
+      <text x="58" y="88" fill="rgba(255,217,179,0.55)" fontFamily="ui-monospace, Menlo, monospace" fontSize="22">{'{'}</text>
+      <rect x="104" y="82" width="92" height="7" rx="3.5" fill="rgba(255,217,179,0.7)" />
+      <rect x="104" y="98" width="124" height="7" rx="3.5" fill="rgba(244,241,234,0.28)" />
+      <rect x="104" y="114" width="72" height="7" rx="3.5" fill="rgba(244,241,234,0.18)" />
+      <rect x="104" y="130" width="108" height="7" rx="3.5" fill="rgba(255,217,179,0.35)" />
+      <text x="232" y="148" fill="rgba(255,217,179,0.55)" fontFamily="ui-monospace, Menlo, monospace" fontSize="22">{'}'}</text>
+    </svg>
+  )
+}
+
+const COVER_ILLUSTRATIONS: Record<string, () => JSX.Element> = {
+  'Emergency Social Network': NetworkIllustration,
+  skills: SkillsIllustration,
 }
 
 // 一张全高板块卡：左侧整高配图，右侧文字（编号 + 标题 + 清单）
@@ -43,22 +127,48 @@ function SectionCard({
 }) {
   const [coverError, setCoverError] = useState(false)
   const cover = SECTION_COVERS[section.id]
+  const Illustration = COVER_ILLUSTRATIONS[section.id]
+  const media =
+    cover && !coverError ? (
+      <img src={cover} alt="" onError={() => setCoverError(true)} />
+    ) : Illustration ? (
+      <Illustration />
+    ) : null
+
   return (
     <div className="wk-card">
       <div className="wk-card-head">
         <span className="wk-card-no">{section.no}</span>
-        <h3 className="wk-card-title">{section.title}</h3>
+        <h3 className="wk-card-title">
+          {section.link ? (
+            <a
+              className="wk-card-title-link"
+              href={section.link}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {section.title}
+            </a>
+          ) : (
+            section.title
+          )}
+        </h3>
         <span className="wk-card-tagline">{section.tagline}</span>
       </div>
-      <div className="wk-card-cover">
-        {cover && !coverError ? (
-          <img src={cover} alt="" onError={() => setCoverError(true)} />
+      {media &&
+        (section.link ? (
+          <a
+            className="wk-card-cover"
+            href={section.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={section.title}
+          >
+            {media}
+          </a>
         ) : (
-          <div className="wk-card-cover-ph" aria-hidden="true">
-            <span className="wk-card-cover-no">{section.no}</span>
-          </div>
-        )}
-      </div>
+          <div className="wk-card-cover">{media}</div>
+        ))}
       <SectionWorks section={section} data={data} onOpen={onOpen} />
     </div>
   )
@@ -79,7 +189,8 @@ function SectionWorks({
       {section.items && (
         <ul className="wk-list">
           {section.items.map((it, i) => (
-            <WorkLine key={i} item={it} onOpen={onOpen} />
+            <WorkLine key={i} item={it} />
+            // <WorkLine key={i} item={it} onOpen={onOpen} />
           ))}
         </ul>
       )}
@@ -90,7 +201,8 @@ function SectionWorks({
             <div className="wk-sub-head">{g.heading}</div>
             <ul className="wk-list">
               {g.items.map((it, i) => (
-                <WorkLine key={i} item={{ name: it }} onOpen={onOpen} />
+                <WorkLine key={i} item={{ name: it }} />
+                // <WorkLine key={i} item={{ name: it }} onOpen={onOpen} />
               ))}
             </ul>
           </div>
